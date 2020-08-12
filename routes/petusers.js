@@ -1,9 +1,10 @@
 const express = require('express');
 const Joi = require('@hapi/joi');
-
+const objectid = require('mongodb').ObjectId
 const Pet = require('../models/pets');
 const { validateBody } = require('../middlewares/route');
 const { request } = require('express');
+const { object } = require('@hapi/joi');
 
 const router = express.Router();
 
@@ -41,8 +42,9 @@ router.get("/",(req,res,next)=>{
 }
 );
 
-router.get("/:name",async (req,res,next)=>{
-  Pet.findOne({name:req.params.name})
+router.get("/:id",async (req,res,next)=>{
+  var id = new objectid(req.params.id)
+  Pet.findOne({_id:id})
       .exec((err,pet)=>{
         if(err || !pet){
           next(err);
@@ -58,8 +60,9 @@ router.delete("/deletepet", async(req,res,next)=>{
    .then(()=>{res.status(201).json({message:"Deleted All the pets"})})
     .catch(err=>{next(err);})
 })
-router.delete("/deletepet/:name",async (req, res, next) => {
-  Pet.findOne({name:req.params.name})
+router.delete("/deletepet/:id",async (req, res, next) => {
+  var id = new objectid(req.params.id)
+  Pet.findOne({_id:id})
     .exec((err,pet)=>{
       if(err || !pet){
         next(err);
