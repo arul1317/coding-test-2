@@ -16,8 +16,7 @@ describe('functional - user', () => {
     });
     expect(res.status).to.equal(400);
     expect(res.body.message).to.equal('"firstName" is required');
-  });
-
+  })
   it('should create a user', async () => {
     const user = {
       firstName: 'John',
@@ -31,5 +30,5 @@ describe('functional - user', () => {
     expect(res.body.lastName).to.equal(user.lastName);
     expect(res.body.age).to.equal(user.age);
     expect(res.body.profession).to.equal(user.profession);
-  });
+    })
 });

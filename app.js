@@ -1,5 +1,4 @@
 const express = require('express');
-
 const routes = require('./routes');
 const { ValidationError, NotFoundError } = require('./lib/errors');
 
@@ -20,5 +19,6 @@ app.use('/', (err, req, res, next) => {
     message: err.message,
   });
 });
+
 
 module.exports = app;
